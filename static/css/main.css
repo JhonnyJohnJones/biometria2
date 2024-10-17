@@ -1,0 +1,92 @@
+:root{
+    --azul-escuro: rgb(50, 50, 255);
+    --azul-claro: rgb(85, 85, 255);
+    --azul-mais-claro: rgb(160, 160, 255);
+}
+
+body {
+    margin: 0;
+    padding: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: azure;
+}
+
+
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+}
+
+div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}
+
+a {
+    color: whitesmoke;
+    padding: 6px 10px;
+    text-decoration: none;
+    background-color: var(--azul-escuro);
+    transition: 0.2s;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+a:hover {
+    cursor: pointer;
+    background-color: var(--azul-claro);
+}
+
+a:visited {
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+button {
+    color: whitesmoke;
+    padding: 10px 20px;
+    border-color: var(--azul-escuro);
+    background-color: var(--azul-escuro);
+    transition: 0.2s;
+    border-radius: 12px;
+    font-weight: bolder;
+    font-size: 16px;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: var(--azul-claro);
+}
+
+input[type="text"] {
+    padding: 6px 8px;
+    border-color: var(--azul-escuro);
+    background-color: var(--azul-mais-claro);
+    border-radius: 8px;
+    border-width: 2px;
+}
+
+input[type="text"]:hover {
+    cursor: text;
+}
+
+input[type="file"] {
+    border-radius: 4px;
+    padding: 4px 6px;
+    border-color: var(--azul-escuro);
+    background-color: var(--azul-claro);
+    font-weight: bold;
+}
