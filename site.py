@@ -28,8 +28,14 @@ def salvar():
     js.close()
     for user in usrs["users"]:
         try:
-            if user.nome == nome:
+            if user["nome"] == nome:
                 return "Nome já usado"
+        except:
+            break
+    for user in usrs["users"]:
+        try:
+            if user["digital"] == digital.filename:
+                return "Renomeie o arquivo"
         except:
             break
     digital.save(f"static/temp/{digital.filename}")
