@@ -55,10 +55,14 @@ def auth(digital):
 def authDirect(digital, nome):
     js = open("static/users.json", "r")
     usrs = json.loads(js.read())
+    # print(usrs)
     js.close()
-    for user in usrs["users"]:
-        try:
+    # print(nome)
+    try:
+        for user in usrs["users"]:
+            # print(user["nome"])
             if user["nome"] == nome:
+                # print("Achado")
                 fingerprint_test = cv2.imread(f"./static/temp/{digital}")
                 fingerprint_database_image = cv2.imread(f"./static/saved/{user['digital']}")
                 sift = cv2.SIFT_create()
@@ -78,16 +82,17 @@ def authDirect(digital, nome):
                     keypoints = len(keypoints_2)
                 # print(f"Keypoints: {keypoints}")
                 # print(f"match_points: {match_points}")
+                # print(f"Porcentagem: {len(match_points) / keypoints}")
                 if (len(match_points) / keypoints)>0.95:
                     # result = cv2.drawMatches(fingerprint_test, keypoints_1, fingerprint_database_image, keypoints_2, match_points, None) 
                     # result = cv2.resize(result, None, fx=2.5, fy=2.5)
                     # img = im.fromarray(result, 'RGB')
                     # img.save('img.BMP')
                     return True
-        except:
-            pass
-            # print("CUTUVELO")
-        return False
+    except:
+        pass
+        # print("CUTUVELO")
+    return False
 
 
 if __name__ == "__main__":

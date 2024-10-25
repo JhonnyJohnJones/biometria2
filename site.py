@@ -12,10 +12,11 @@ app = Flask(__name__, template_folder='template')
 def homepage():
     return render_template("main.html")
 
-@app.route("/salvar")
+@app.route("/salvar", methods=["GET", "POST"])
 def salvar():
     if request.method == "POST":
-        nome = request.form.get("nome")
+        nome = request.form.get("nome").strip()
+        nivel = int(request.form.get("nivel"))
         digital = request.files["digital"]
         # print(digital)
         js = open("static/users.json", "r")
@@ -38,7 +39,7 @@ def salvar():
         print(f"Auth: {auth(digital.filename)}")
         if not auth(digital.filename):
             js = open("static/users.json", "w")
-            usrs["users"].append({"nome": nome, "digital": digital.filename})
+            usrs["users"].append({"nome": nome, "digital": digital.filename, "nivel": nivel})
             js.write(json.dumps(usrs))
             js.close()
             os.rename(f"static/temp/{digital.filename}", f"static/saved/{digital.filename}")
@@ -53,17 +54,22 @@ def salvar():
 @app.route("/autenticar", methods=["GET", "POST"])
 def autenticar():
     if request.method == "POST":
-        nome = request.form.get("nome")
+        nome = request.form.get("nome").strip()
         digital = request.files["digital"]
         digital.save(f"static/temp/{digital.filename}")
         # print(digital)
         js = open("static/users.json", "r")
         usrs = json.loads(js.read())
-        print(usrs)
+        nivel = 1
+        # print(usrs)
         js.close()
         if authDirect(digital.filename, nome):
+            for user in usrs["users"]:
+                if user["nome"] == nome:
+                    nivel = user["nivel"]
+                    break
             os.remove(f"static/temp/{digital.filename}")
-            return f"Bem vindo, {nome}"
+            return f"Bem vindo, {nome}. Seu nível de informação é: {nivel}"
         else:
             os.remove(f"static/temp/{digital.filename}")
             return "Não te conheço"

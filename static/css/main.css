@@ -71,12 +71,17 @@ button:hover {
     background-color: var(--azul-claro);
 }
 
-input[type="text"] {
+input[type="text"], input[type="number"] {
     padding: 6px 8px;
     border-color: var(--azul-escuro);
     background-color: var(--azul-mais-claro);
     border-radius: 8px;
     border-width: 2px;
+}
+
+input[type="number"] {
+    text-align: center;
+    font-weight: bold;
 }
 
 input[type="text"]:hover {
