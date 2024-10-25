@@ -18,7 +18,6 @@ def salvar():
         nome = request.form.get("nome").strip()
         nivel = int(request.form.get("nivel"))
         digital = request.files["digital"]
-        # print(digital)
         js = open("static/users.json", "r")
         usrs = json.loads(js.read())
         print(usrs)
@@ -57,11 +56,9 @@ def autenticar():
         nome = request.form.get("nome").strip()
         digital = request.files["digital"]
         digital.save(f"static/temp/{digital.filename}")
-        # print(digital)
         js = open("static/users.json", "r")
         usrs = json.loads(js.read())
         nivel = 1
-        # print(usrs)
         js.close()
         if authDirect(digital.filename, nome):
             for user in usrs["users"]:

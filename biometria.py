@@ -11,7 +11,7 @@ def auth(digital):
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()
     try:
-        if os.listdir("static/saved").count() >= 1:
+        if len(os.listdir("./static/saved")) >= 1:
             for file in [file for file in os.listdir("./static/saved")]:
                 # Aquisição 2
                 fingerprint_database_image = cv2.imread("./static/saved/"+file)
@@ -19,18 +19,16 @@ def auth(digital):
                 # Pré-Processamento
                 fingerprint_test_gray = cv2.cvtColor(fingerprint_test, cv2.COLOR_BGR2GRAY)
                 fingerprint_database_image_gray = cv2.cvtColor(fingerprint_database_image, cv2.COLOR_BGR2GRAY)
-                fingerprint_test_blur = cv2.GaussianBlur(fingerprint_test_gray, (5, 5), 0)
-                fingerprint_database_image_blur = cv2.GaussianBlur(fingerprint_database_image_gray, (5, 5), 0)
-                fingerprint_test_enhanced = cv2.equalizeHist(fingerprint_test_blur)
-                fingerprint_database_image_enhanced = cv2.equalizeHist(fingerprint_database_image_blur)
+                fingerprint_test_contrast = cv2.equalizeHist(fingerprint_test_gray)
+                fingerprint_database_image_contrast = cv2.equalizeHist(fingerprint_database_image_gray)
 
                 # Segmentação
                 fingerprint_test_segmented = cv2.adaptiveThreshold(
-                    fingerprint_test_enhanced, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, 
+                    fingerprint_test_contrast, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, 
                     cv2.THRESH_BINARY_INV, 11, 2
                 )
                 fingerprint_database_image_segmented = cv2.adaptiveThreshold(
-                    fingerprint_database_image_enhanced, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, 
+                    fingerprint_database_image_contrast, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, 
                     cv2.THRESH_BINARY_INV, 11, 2
                 )
 
@@ -51,10 +49,9 @@ def auth(digital):
                 keypoints = min(len(keypoints_1), len(keypoints_2))
                 if keypoints > 0 and (len(match_points) / keypoints) > 0.95:
                     return True
-                else:
-                    return False
-    except:
-        return False
+    except Exception(e):
+        print(e)
+    return False
 
 
 def authDirect(digital, nome):
