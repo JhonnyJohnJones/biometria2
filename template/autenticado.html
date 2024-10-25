@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../static/images/fingerprint.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../static/css/main.css">
+    <title>Bem Vindo!</title>
+<body>
+    <main>
+        <h1>Bem Vindo, {{ nome }}!</h1>
+        <h2>Seu nível de acesso é: {{ nivel }}</h2>
+        <div id="processo">
+            <h3>Sua Digital</h3>
+            <img src="../static/saved/{{ digital }}" alt="Minha digital">
+            <h3>Pré-processada</h3>
+            <img src="../static/temp/_1.BMP" alt="Minha digital pré-processada">
+            <h3>Segmentada</h3>
+            <img src="../static/temp/_2.BMP" alt="Minha digital segmentada">
+            <h3>Extração de características</h3>
+            <img src="../static/temp/_3.BMP" alt="Extração de características da minha digital ">
+            <h3>Interpretação</h3>
+            <img src="../static/temp/_4.BMP" alt="Interpretação da minha digital">
+        </div>
+        <a href="/">Voltar</a>
+    </main>
+</body>
+</html>

@@ -69,7 +69,7 @@ def autenticar():
                     nivel = user["nivel"]
                     break
             os.remove(f"static/temp/{digital.filename}")
-            return f"Bem vindo, {nome}. Seu nível de informação é: {nivel}"
+            return render_template("autenticado.html", nome=nome, nivel=nivel, digital=user["digital"])
         else:
             os.remove(f"static/temp/{digital.filename}")
             return "Não te conheço"

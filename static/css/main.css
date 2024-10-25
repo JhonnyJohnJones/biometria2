@@ -95,3 +95,15 @@ input[type="file"] {
     background-color: var(--azul-claro);
     font-weight: bold;
 }
+
+#processo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+}
+
+img {
+    max-width: 40vw;
+}
