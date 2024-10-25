@@ -75,12 +75,12 @@ def authDirect(digital, nome):
                 print("Pré-processamento")
                 fingerprint_test_gray = cv2.cvtColor(fingerprint_test, cv2.COLOR_BGR2GRAY)
                 fingerprint_database_image_gray = cv2.cvtColor(fingerprint_database_image, cv2.COLOR_BGR2GRAY)
-                # fingerprint_test_blur = cv2.GaussianBlur(fingerprint_test_gray, (5, 5), 0)
-                # fingerprint_database_image_blur = cv2.GaussianBlur(fingerprint_database_image_gray, (5, 5), 0)
+                fingerprint_test_contrast = cv2.equalizeHist(fingerprint_test_gray)
+                fingerprint_database_image_contrast = cv2.equalizeHist(fingerprint_database_image_gray)
                 # fingerprint_test_enhanced = cv2.equalizeHist(fingerprint_test_gray)
                 # fingerprint_database_image_enhanced = cv2.equalizeHist(fingerprint_database_image_gray)
                 
-                result1 = cv2.cvtColor(fingerprint_test_gray, cv2.COLOR_GRAY2RGB)
+                result1 = cv2.cvtColor(fingerprint_test_contrast, cv2.COLOR_GRAY2RGB)
                 result1 = cv2.resize(result1, None, fx=1, fy=1)
                 img1 = im.fromarray(result1, 'RGB')
                 img1.save('./static/temp/_1.BMP')
@@ -88,11 +88,11 @@ def authDirect(digital, nome):
                 # Segmentação
                 print("Segmentação")
                 fingerprint_test_segmented = cv2.adaptiveThreshold(
-                    fingerprint_test_gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, 
+                    fingerprint_test_contrast, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, 
                     cv2.THRESH_BINARY_INV, 11, 2
                 )
                 fingerprint_database_image_segmented = cv2.adaptiveThreshold(
-                    fingerprint_database_image_gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, 
+                    fingerprint_database_image_contrast, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, 
                     cv2.THRESH_BINARY_INV, 11, 2
                 )
                 result2 = cv2.cvtColor(fingerprint_test_segmented, cv2.COLOR_GRAY2RGB)
